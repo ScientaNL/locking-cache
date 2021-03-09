@@ -1,0 +1,106 @@
+{
+	"root": true,
+	"ignorePatterns": [],
+	"plugins": [
+		"@typescript-eslint"
+	],
+	"parserOptions": {
+		"project": ["./tsconfig.json"] // Specify it only for TypeScript files,
+	},
+	"extends": [
+		"plugin:@typescript-eslint/recommended"
+	],
+	"rules": {
+		// https://eslint.org/docs/rules/
+		"require": "off",
+		"arrow-parens": "off",
+		"no-angle-bracket-type-assertion": "off",
+		"whitespace": "off",
+		"quotes": "off",
+		"ordered-imports": "off",
+		"one-variable-per-declaration": "off",
+		"no-unused-expressions": ["error", {"allowTernary":  true}],
+		"no-unused-vars": "off", // use typescript version instead
+		"no-shadowed-variable": "off",
+		"forin": "off",
+		"triple-equals": "off",
+		"object-literal-shorthand": "off",
+		"complexity": ["error",{"max": 20}],
+		"radix": "off",
+		"no-bitwise": "off",
+		"no-reference": "off",
+		"no-console": "off",
+		"indent": ["error", "tab", {"SwitchCase":  1, "ignoredNodes": ["*[parent.kind='constructor']"]}],
+		"object-literal-sort-keys": "off",
+		"interface-name": "off",
+		"no-trailing-whitespace": "off",
+		"array-type": "off",
+		"semi": "error",
+		"max-classes-per-file": "off",
+		"trailing-comma": "off",
+		"no-redundant-jsdoc": "off",
+		"no-inferrable-types": "off",
+		"no-switch-case-fallthrough": "off",
+		"no-fallthrough": ["error", {"commentPattern": "fall[\\s|\\-]?through"}],
+
+		// proposals
+		"eol-last": "error",
+		"block-spacing": "error",
+		"comma-style": "error",
+		"yoda": "error",
+		"linebreak-style": "error",
+		"key-spacing": "error",
+		"new-parens": "error",
+		"func-call-spacing": "error",
+		"no-lonely-if": "error",
+		"no-multiple-empty-lines": "error",
+		"no-unneeded-ternary": "error",
+		"object-curly-newline": "error",
+		"operator-assignment": "error",
+		"array-bracket-spacing": "error",
+		"arrow-body-style": ["error", "as-needed"],
+		"arrow-spacing": "error",
+		"prefer-const": "error",
+		"prefer-template": "error",
+		"rest-spread-spacing": "error",
+		"template-curly-spacing": "error",
+		"no-trailing-spaces": "error",
+		"no-mixed-operators": "error",
+		"brace-style": "error",
+		"max-lines": ["error", 750],
+		"max-len": ["error", { "code": 160, "tabWidth": 4, "ignoreTemplateLiterals": true}],
+		"max-depth": "error",
+		"max-lines-per-function" : "error",
+		"max-nested-callbacks": "error",
+		"max-params": ["error", {"max": 10}],
+		"require-await": "error",
+		"no-implicit-coercion": ["error", {"boolean":  false}],
+
+		// https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin/docs/rules
+		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"@typescript-eslint/prefer-enum-initializers": "error",
+		"@typescript-eslint/prefer-literal-enum-member": "error",
+		"@typescript-eslint/prefer-nullish-coalescing": "error",
+		"@typescript-eslint/prefer-optional-chain": "error",
+		"@typescript-eslint/prefer-readonly": "error",
+		"@typescript-eslint/switch-exhaustiveness-check": "error",
+		"@typescript-eslint/type-annotation-spacing": "error",
+		"@typescript-eslint/no-inferrable-types": "off",
+		"@typescript-eslint/member-ordering": "off",
+		"@typescript-eslint/no-unused-vars": ["error", {"args":  "none"}],
+		"@typescript-eslint/keyword-spacing": "off",
+		"@typescript-eslint/no-var-requires": "off"
+	},
+	"overrides": [
+		{
+			"files": ["*.ts"], // Your TypeScript files extension,
+			"parserOptions": {
+				"project": ["./tsconfig.json"] // Specify it only for TypeScript files,
+			},
+			"rules": {
+				"@typescript-eslint/explicit-member-accessibility": ["error", {"overrides": {"accessors":  "explicit", "constructors": "off"} }]
+			}
+		}
+	]
+}
