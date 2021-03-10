@@ -1,6 +1,7 @@
 {
 	"name": "@scienta/locking-cache",
 	"description": "Caching values with (distributed) locking. Easily extensible with your own storage and locking implementations",
+	"version": "1.0.0",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
