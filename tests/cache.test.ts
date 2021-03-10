@@ -1,11 +1,8 @@
 import {expect} from "chai";
 import {describe} from "mocha";
-import {TokenStoreStub} from "./token-store.stub";
-import {CacheErrorEvents, LockingCache} from "../src/locking-cache";
-import {Locker, SimpleLock, SimpleLocker} from "../src/locker/";
-import {TokenStore} from "../src/store/token-store.interface";
+import {CacheErrorEvents, LockingCache, Locker, SimpleLock, SimpleLocker, SimpleStorage, Storage} from "../index";
 
-const cacheFactory = <T>(tokenStore?: TokenStore<T>, locker?: Locker) => new LockingCache(tokenStore ?? new TokenStoreStub<T>(), locker);
+const cacheFactory = <T>(tokenStore?: Storage<T>, locker?: Locker) => new LockingCache(tokenStore, locker);
 
 describe('locking-cache', () => {
 	it('should have no values', async () => {
@@ -88,12 +85,12 @@ describe('locking-cache-errors', () => {
 
 	it('should error on storeGetError', async () => {
 		const error = new Error();
-		class TokenStore<T> extends TokenStoreStub<T> {
+		class Storage<T> extends SimpleStorage<T> {
 			public get(key: string | number) {
 				return Promise.reject(error);
 			}
 		}
-		const cache = cacheFactory<string>(new TokenStore<string>());
+		const cache = cacheFactory<string>(new Storage<string>());
 
 		let storeGetEventError = null, storeGetCatchError = null;
 		cache.on(CacheErrorEvents.storeGetError, (error) => storeGetEventError = error);
@@ -112,12 +109,12 @@ describe('locking-cache-errors', () => {
 
 	it('should error on storeSetError', async () => {
 		const error = new Error();
-		class TokenStore<T> extends TokenStoreStub<T> {
+		class Storage<T> extends SimpleStorage<T> {
 			public set(key: string | number, value: T) {
 				return Promise.reject(error);
 			}
 		}
-		const cache = cacheFactory<string>(new TokenStore<string>());
+		const cache = cacheFactory<string>(new Storage<string>());
 
 		let storeSetEventError = null, storeSetCatchError = null;
 		cache.on(CacheErrorEvents.storeSetError, (error) => storeSetEventError = error);

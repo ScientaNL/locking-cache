@@ -7,5 +7,5 @@ services:
     volumes:
       - ./:/app
     environment:
-      DEBUG: "*,-mocha*,-eslint*,-typescript-eslint*"
+      DEBUG: "*,-mocha*,-eslint*,-typescript-eslint*,-babel*,-istanbuljs*"
     command: tail -f /dev/null

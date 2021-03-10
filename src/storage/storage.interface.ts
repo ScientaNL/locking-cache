@@ -1,4 +1,4 @@
-export interface TokenStore<T> {
+export interface Storage<T> {
 	/**
 	 * get a cached key
 	 *
@@ -15,7 +15,7 @@ export interface TokenStore<T> {
 	 */
 	set(
 		key: string | number,
-		value: T,
+		value?: T,
 		ttlSec?: number
 	): Promise<any>;
 }
