@@ -10,5 +10,10 @@
 		"forceConsistentCasingInFileNames": true,
 		"lib": ["DOM","esnext"]
 	},
-	"exclude": ["./node_modules","./dist","./tests"]
+	"exclude": [
+		"./node_modules",
+		"./dist",
+		"./tests,",
+		"./coverage,"
+	]
 }
