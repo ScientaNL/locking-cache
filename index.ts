@@ -1,4 +1,4 @@
-export * from './src/locker/locker.interface';
-export * from './src/locker/redis-locker';
-export * from './src/locker/simple-locker';
+export * from './src/locker/index';
 export * from './src/locking-cache';
+export * from './src/no-resolved-value-error';
+export * from './src/store/token-store.interface';

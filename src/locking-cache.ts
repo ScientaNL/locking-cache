@@ -1,6 +1,25 @@
-import { EventEmitter } from "events";
-import { Lock, Locker } from "./locker/locker.interface";
-import { SimpleLocker } from "./locker/simple-locker";
+import {EventEmitter} from "events";
+import {Lock, Locker} from "./locker/locker.interface";
+import {SimpleLocker} from "./locker/simple/simple-locker";
+import {NoResolvedValueError} from "./no-resolved-value-error";
+import {TokenStore} from "./store/token-store.interface";
+
+export enum CacheErrorEvents {
+	resolveError = 'resolveError',
+	storeGetError = 'storeGetError',
+	storeSetError = 'storeSetError',
+	lockError = 'lockError',
+	unlockError = 'unlockError'
+}
+
+export interface ValueResolver<T> {
+	(): Promise<ResolvedExpiringValue<T> | undefined>;
+}
+
+export interface ResolvedExpiringValue<T> {
+	value: T
+	expiresInSec?: number
+}
 
 export class LockingCache<T> extends EventEmitter {
 	public cacheOnLockError = true;
@@ -9,7 +28,7 @@ export class LockingCache<T> extends EventEmitter {
 		super();
 	}
 
-	public getStoredValue(cacheKey: string, catchError = false): Promise<T|null|undefined> {
+	public getStoredValue(cacheKey: string, catchError = false): Promise<T | null | undefined> {
 		let promise = this.tokenStore.get(cacheKey);
 		if (catchError) {
 			promise = promise.catch(err => {
@@ -20,7 +39,7 @@ export class LockingCache<T> extends EventEmitter {
 		return promise;
 	}
 
-	public getValue(cacheKey: string, valueResolver: ValueResolver<T>, maxLockDurationMs?: number): Promise<T|null|undefined> {
+	public getValue(cacheKey: string, valueResolver: ValueResolver<T>, maxLockDurationMs?: number): Promise<T | null | undefined> {
 		return this.getStoredValue(cacheKey)
 			.then(value => value ?? this.resolveValueLocked(cacheKey, valueResolver, maxLockDurationMs));
 	}
@@ -53,11 +72,11 @@ export class LockingCache<T> extends EventEmitter {
 		);
 	}
 
-	protected resolveAndStoreValue(cacheKey: string, valueResolver: ValueResolver<T>): Promise<T|undefined> {
+	protected resolveAndStoreValue(cacheKey: string, valueResolver: ValueResolver<T>): Promise<T | undefined> {
 		return valueResolver()
 			.then(resolvedExpiringValue => {
 				if (!resolvedExpiringValue) {
-					throw new NoResolvedValue('There is no resolved value to cache');
+					throw new NoResolvedValueError('There is no resolved value to cache');
 				}
 				return resolvedExpiringValue;
 			})
@@ -101,49 +120,4 @@ export class LockingCache<T> extends EventEmitter {
 	public removeListener(event: CacheErrorEvents, listener: (err: any) => void): this {
 		return super.removeListener(event, listener);
 	}
-}
-
-export enum CacheErrorEvents {
-	resolveError = 'resolveError',
-	storeGetError = 'storeGetError',
-	storeSetError = 'storeSetError',
-	lockError = 'lockError',
-	unlockError = 'unlockError'
-}
-
-export class NoResolvedValue extends Error {
-	constructor(message: string) {
-		super(message);
-	}
-}
-
-export interface TokenStore<T> {
-	/**
-	 * get a cached key
-	 *
-	 * @param key cache key or an array of keys
-	 */
-	get( key: string | number): Promise<T|null|undefined>;
-
-	/**
-	 * set a cached key
-	 *
-	 * @param key cache key
-	 * @param value A element to cache.
-	 * @param ttlSec The time to live in seconds.
-	 */
-	set(
-		key: string | number,
-		value: T,
-		ttlSec?: number
-	): Promise<any>;
-}
-
-export interface ValueResolver<T> {
-	(): Promise<ResolvedExpiringValue<T>|undefined>;
-}
-
-export interface ResolvedExpiringValue<T> {
-	value: T
-	expiresInSec?: number
 }

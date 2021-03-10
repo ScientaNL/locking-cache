@@ -1,4 +1,4 @@
-import {TokenStore} from "../src/locking-cache";
+import {TokenStore} from "../src/store/token-store.interface";
 
 export class TokenStoreStub<T> implements TokenStore<T> {
 
@@ -12,9 +12,9 @@ export class TokenStoreStub<T> implements TokenStore<T> {
 	}
 
 	public set(key: string | number, value: T, ttlSec?: number) {
-		key += '';
-		this.data.set(key+'', value);
-		this.setTTL(key as string, ttlSec);
+		const dataKey: string = key + '';
+		this.data.set(dataKey, value);
+		this.setTTL(dataKey, ttlSec);
 		return Promise.resolve();
 	}
 

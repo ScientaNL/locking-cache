@@ -1,9 +1,9 @@
 import {expect} from "chai";
 import {describe} from "mocha";
 import {TokenStoreStub} from "./token-store.stub";
-import {CacheErrorEvents, LockingCache, TokenStore} from "../src/locking-cache";
-import {Locker} from "../src/locker/locker.interface";
-import {SimpleLock, SimpleLocker} from "../src/locker/simple-locker";
+import {CacheErrorEvents, LockingCache} from "../src/locking-cache";
+import {Locker, SimpleLock, SimpleLocker} from "../src/locker/";
+import {TokenStore} from "../src/store/token-store.interface";
 
 const cacheFactory = <T>(tokenStore?: TokenStore<T>, locker?: Locker) => new LockingCache(tokenStore ?? new TokenStoreStub<T>(), locker);
 
