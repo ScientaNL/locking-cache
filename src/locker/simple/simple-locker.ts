@@ -1,5 +1,6 @@
-import type { exec, release } from 'lock';
-import { Lock, Locker } from "./locker.interface";
+import type {exec, release} from 'lock';
+import {Locker} from "../locker.interface";
+import {SimpleLock} from "./simple-lock";
 
 //ILock from lock.d.ts misses isLocked string param
 interface ILock {
@@ -7,7 +8,7 @@ interface ILock {
 	isLocked(key: string): boolean;
 }
 
-type releaser = () => Promise<void>;
+export type releaser = () => Promise<void>;
 
 export class SimpleLocker implements Locker {
 	public defaultLockDurationMs: number = NaN;
@@ -63,19 +64,5 @@ export class SimpleLocker implements Locker {
 
 			throw err;
 		}
-	}
-}
-
-export class SimpleLock implements Lock {
-	private released = false;
-
-	constructor(public readonly key: string, private readonly lockReleaser: releaser) {}
-
-	public unlock(): Promise<void> {
-		if (this.released) {
-			return Promise.resolve(undefined);
-		}
-		this.released = true;
-		return this.lockReleaser();
 	}
 }

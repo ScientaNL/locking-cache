@@ -6,8 +6,9 @@
 	"scripts": {
 		"build": "tsc",
 		"coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
-		"test": "mocha -r ts-node/register tests/**/*.test.ts",
-		"prepublish": "tsc"
+		"lint": "npx eslint 'src/**/*.ts'",
+		"prepublish": "tsc",
+		"test": "mocha -r ts-node/register tests/**/*.test.ts"
 	},
 	"peerDependencies": {
 		"lock": "^1.1.0",
@@ -16,6 +17,7 @@
 	"devDependencies": {
 		"@babel/types": "^7.13.0",
 		"@types/chai": "^4.2.14",
+		"@types/ioredis": "^4.22.0",
 		"@types/mocha": "^8.0.4",
 		"@types/node": "^14.14.32",
 		"@types/redlock": "^4.0.1",
@@ -23,6 +25,7 @@
 		"@typescript-eslint/parser": "^4.17.0",
 		"chai": "^4.2.0",
 		"eslint": "^7.17.0",
+		"ioredis": "^4.23.0",
 		"lock": "^1.1.0",
 		"mocha": "^8.2.1",
 		"nyc": "^15.1.0",
@@ -35,6 +38,12 @@
 			"optional": true
 		},
 		"redlock": {
+			"optional": true
+		},
+		"node-ts-cache": {
+			"optional": true
+		},
+		"node-ts-cache-storage-ioredis": {
 			"optional": true
 		}
 	}

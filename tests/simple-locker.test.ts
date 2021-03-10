@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import {describe} from "mocha";
-import {SimpleLock, SimpleLocker} from "../src/locker/simple-locker";
+import {SimpleLock, SimpleLocker} from "../src/locker/";
 
 describe('simple-locker', () => {
 	it('should lock and unlock by id', async () => {

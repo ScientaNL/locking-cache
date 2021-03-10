@@ -1,17 +1,6 @@
-###############################
-# Core EditorConfig Options   #
-###############################
-root = true
-
-[*.{js, ts}]
-trim_trailing_whitespace = true
-
-# The indent size used in the `package.json` file cannot be changed
-# https://github.com/npm/npm/pull/3180#issuecomment-16336516
-[{*.yml,*.yaml,package.json}]
-indent_style = space
-indent_size = 2
 # http://editorconfig.org
+
+root = true
 
 [*]
 charset = utf-8
@@ -22,24 +11,7 @@ insert_final_newline = true
 tab_width = 4
 trim_trailing_whitespace = true
 
-[*.ts]
-indent_style = tab
-
-[*.html]
-indent_style = tab
-
-[*.scss]
-indent_style = tab
-
-[*.css]
-indent_style = tab
-
 # Overwrite specific file types
 [*.{yml,yaml}]
 indent_size = 2
 indent_style = space
-
-# Overwrite specifics from vendors
-[*.{php,sh,json,js,ts,xml}]
-indent_size = 4
-indent_style = tab
