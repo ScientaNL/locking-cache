@@ -12,7 +12,8 @@
 	},
 	"peerDependencies": {
 		"lock": "^1.1.0",
-		"redlock": "^4.1.0"
+		"redlock": "^4.1.0",
+		"ioredis": "^4.23.0"
 	},
 	"devDependencies": {
 		"@babel/types": "^7.13.0",
@@ -40,10 +41,7 @@
 		"redlock": {
 			"optional": true
 		},
-		"node-ts-cache": {
-			"optional": true
-		},
-		"node-ts-cache-storage-ioredis": {
+		"ioredis": {
 			"optional": true
 		}
 	}

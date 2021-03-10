@@ -106,3 +106,19 @@ cache.getValue(clientId, requestTokenMock).then(result => {
   // handle resolveError|storeGetError|storeSetError(|lockError)
 });
 ```
+
+## Contributing
+If you want to contribute, please do so. A `docker-compose.yml` file is added to make development easy.
+
+### Developing with docker-compose
+To start development within the defined container, just use docker-compose:
+```bash
+docker-compose up -d
+docker exec -ti locking-cache bash
+```
+
+### Testing and linting without docker-compose
+To quickly run tests and linting from a docker container, you can also use docker directly:
+```bash
+docker run -it -w="/app" -v ${PWD}:/app node:14-slim /bin/bash -c "npm install && npm run test && npm run lint"
+```
