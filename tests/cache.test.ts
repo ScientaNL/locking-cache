@@ -1,11 +1,11 @@
 import {expect} from "chai";
 import {describe} from "mocha";
-import {TokenStoreStub} from "./token-store.stub";
 import {CacheErrorEvents, LockingCache, TokenStore} from "../src/locking-cache";
 import {Locker} from "../src/locker/locker.interface";
 import {SimpleLock, SimpleLocker} from "../src/locker/simple-locker";
+import {SimpleStorage} from "../src/storage/simple-storage";
 
-const cacheFactory = <T>(tokenStore?: TokenStore<T>, locker?: Locker) => new LockingCache(tokenStore ?? new TokenStoreStub<T>(), locker);
+const cacheFactory = <T>(tokenStore?: TokenStore<T>, locker?: Locker) => new LockingCache(tokenStore ?? new SimpleStorage<T>(), locker);
 
 describe('locking-cache', () => {
 	it('should have no values', async () => {
@@ -88,7 +88,7 @@ describe('locking-cache-errors', () => {
 
 	it('should error on storeGetError', async () => {
 		const error = new Error();
-		class TokenStore<T> extends TokenStoreStub<T> {
+		class TokenStore<T> extends SimpleStorage<T> {
 			public get(key: string | number) {
 				return Promise.reject(error);
 			}
@@ -112,7 +112,7 @@ describe('locking-cache-errors', () => {
 
 	it('should error on storeSetError', async () => {
 		const error = new Error();
-		class TokenStore<T> extends TokenStoreStub<T> {
+		class TokenStore<T> extends SimpleStorage<T> {
 			public set(key: string | number, value: T) {
 				return Promise.reject(error);
 			}

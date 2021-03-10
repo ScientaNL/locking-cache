@@ -1,15 +1,16 @@
-import { EventEmitter } from "events";
-import { Lock, Locker } from "./locker/locker.interface";
-import { SimpleLocker } from "./locker/simple-locker";
+import {EventEmitter} from "events";
+import {Lock, Locker} from "./locker/locker.interface";
+import {SimpleLocker} from "./locker/simple-locker";
+import {SimpleStorage} from "./storage/simple-storage";
 
 export class LockingCache<T> extends EventEmitter {
 	public cacheOnLockError = true;
 
-	constructor(private readonly tokenStore: TokenStore<T>, private readonly locker: Locker = new SimpleLocker()) {
+	constructor(private readonly tokenStore: TokenStore<T> = new SimpleStorage<T>(), private readonly locker: Locker = new SimpleLocker()) {
 		super();
 	}
 
-	public getStoredValue(cacheKey: string, catchError = false): Promise<T|null|undefined> {
+	public getStoredValue(cacheKey: string, catchError = false): Promise<T | null | undefined> {
 		let promise = this.tokenStore.get(cacheKey);
 		if (catchError) {
 			promise = promise.catch(err => {
@@ -20,7 +21,7 @@ export class LockingCache<T> extends EventEmitter {
 		return promise;
 	}
 
-	public getValue(cacheKey: string, valueResolver: ValueResolver<T>, maxLockDurationMs?: number): Promise<T|null|undefined> {
+	public getValue(cacheKey: string, valueResolver: ValueResolver<T>, maxLockDurationMs?: number): Promise<T | null | undefined> {
 		return this.getStoredValue(cacheKey)
 			.then(value => value ?? this.resolveValueLocked(cacheKey, valueResolver, maxLockDurationMs));
 	}
@@ -53,7 +54,7 @@ export class LockingCache<T> extends EventEmitter {
 		);
 	}
 
-	protected resolveAndStoreValue(cacheKey: string, valueResolver: ValueResolver<T>): Promise<T|undefined> {
+	protected resolveAndStoreValue(cacheKey: string, valueResolver: ValueResolver<T>): Promise<T | undefined> {
 		return valueResolver()
 			.then(resolvedExpiringValue => {
 				if (!resolvedExpiringValue) {
@@ -123,7 +124,7 @@ export interface TokenStore<T> {
 	 *
 	 * @param key cache key or an array of keys
 	 */
-	get( key: string | number): Promise<T|null|undefined>;
+	get(key: string | number): Promise<T | null | undefined>;
 
 	/**
 	 * set a cached key
@@ -140,7 +141,7 @@ export interface TokenStore<T> {
 }
 
 export interface ValueResolver<T> {
-	(): Promise<ResolvedExpiringValue<T>|undefined>;
+	(): Promise<ResolvedExpiringValue<T> | undefined>;
 }
 
 export interface ResolvedExpiringValue<T> {
