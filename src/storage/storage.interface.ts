@@ -1,4 +1,4 @@
-export interface TokenStorage<T> {
+export interface Storage<T> {
 	/**
 	 * get a cached key
 	 *

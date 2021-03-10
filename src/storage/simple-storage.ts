@@ -1,6 +1,6 @@
-import {TokenStorage} from "./token-storage.interface";
+import {Storage} from "./storage.interface";
 
-export class SimpleStorage<T> implements TokenStorage<T> {
+export class SimpleStorage<T> implements Storage<T> {
 
 	constructor(
 		private readonly data = new Map<string,T>(),

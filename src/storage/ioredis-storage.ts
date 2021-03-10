@@ -1,5 +1,5 @@
 import * as IORedis from "ioredis";
-import {TokenStorage} from "./token-storage.interface";
+import {Storage} from "./storage.interface";
 
 interface RedisStorageOptions<T> {
 	namespace?: string;
@@ -7,7 +7,7 @@ interface RedisStorageOptions<T> {
 	serializer: (data: T) => Promise<string>;
 }
 
-export class IoRedisStorage<T> implements TokenStorage<T> {
+export class IoRedisStorage<T> implements Storage<T> {
 
 	protected options: RedisStorageOptions<T> = {
 		namespace: undefined,

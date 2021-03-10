@@ -1,7 +1,7 @@
 import {EventEmitter} from "events";
 import {Lock, Locker, SimpleLocker} from "./locker";
 import {SimpleStorage} from "./storage/simple-storage";
-import {TokenStorage} from "./storage/token-storage.interface";
+import {Storage} from "./storage/storage.interface";
 import {NoResolvedValueError} from "./no-resolved-value-error";
 
 export enum CacheErrorEvents {
@@ -24,7 +24,7 @@ export interface ResolvedExpiringValue<T> {
 export class LockingCache<T> extends EventEmitter {
 	public cacheOnLockError = true;
 
-	constructor(private readonly tokenStore: TokenStorage<T> = new SimpleStorage<T>(), private readonly locker: Locker = new SimpleLocker()) {
+	constructor(private readonly tokenStore: Storage<T> = new SimpleStorage<T>(), private readonly locker: Locker = new SimpleLocker()) {
 		super();
 	}
 
