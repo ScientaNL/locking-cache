@@ -6,7 +6,7 @@ jobs:
   pr-check:
     name: PR test for locking-cache
     runs-on: ubuntu-latest
-#    if: github.repository == 'ScientaNL/locking-cache'
+    if: github.repository == 'ScientaNL/locking-cache'
     steps:
       - name: Cancel Previous Runs
         if: ${{ !env.ACT }}

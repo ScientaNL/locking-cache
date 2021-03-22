@@ -20,6 +20,6 @@ jobs:
         uses: ScientaNL/release-npm-github-action@1.0.3
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
-          npm-token: "${{ secrets.NPM_TOKEN }}"
+          npm-token: "${{ secrets.NPM_SCIENTA_TOKEN }}"
           repository-owner: "ScientaNL"
           npm-options: "{tag: 'latest', access: 'public'}"
