@@ -13,11 +13,12 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
-		"build": "tsc",
+		"preversion": "npm test",
+		"prepublishOnly": "npm run build && npm test",
+		"build": "rm -rf dist && tsc",
 		"coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
-		"lint": "npx eslint 'src/**/*.ts'",
-		"prepublish": "tsc",
-		"test": "mocha -r ts-node/register tests/**/*.test.ts"
+		"lint": "eslint --ext .ts src",
+		"test": "TS_NODE_TRANSPILE_ONLY=true TS_NODE_LOG_ERROR=true NODE_ENV=test mocha -r ts-node/register tests/**/*.test.ts"
 	},
 	"peerDependencies": {
 		"lock": "^1.1.0",
@@ -26,7 +27,6 @@
 	},
 	"devDependencies": {
 		"@babel/types": "^7.13.0",
-		"@types/chai": "^4.2.14",
 		"@types/ioredis": "^4.22.0",
 		"@types/mocha": "^8.0.4",
 		"@types/node": "^14.14.32",
