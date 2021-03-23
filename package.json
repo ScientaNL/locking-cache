@@ -13,8 +13,8 @@
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
-		"preversion": "npm test",
-		"prepublishOnly": "npm run build && npm test",
+		"preversion": "npm run test",
+		"prepublishOnly": "npm run build && npm run test",
 		"build": "rm -rf dist && tsc",
 		"coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
 		"lint": "eslint --ext .ts src",
