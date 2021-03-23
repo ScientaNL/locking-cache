@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {describe} from "mocha";
-import {CacheErrorEvents, LockingCache, Locker, SimpleLock, SimpleLocker, SimpleStorage, Storage} from "../index";
+import {CacheErrorEvents, LockingCache, Locker, SimpleLock, SimpleLocker, SimpleStorage, Storage} from "../src";
 
 const cacheFactory = <T>(tokenStore?: Storage<T>, locker?: Locker) => new LockingCache(tokenStore, locker);
 
