@@ -15,10 +15,11 @@
 	"scripts": {
 		"preversion": "npm run test",
 		"prepublishOnly": "npm run build && npm run test",
+		"test": "TS_NODE_TRANSPILE_ONLY=true TS_NODE_LOG_ERROR=true NODE_ENV=test mocha -r ts-node/register tests/**/*.test.ts",
 		"build": "rm -rf dist && tsc",
 		"coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
 		"lint": "eslint --ext .ts src",
-		"test": "TS_NODE_TRANSPILE_ONLY=true TS_NODE_LOG_ERROR=true NODE_ENV=test mocha -r ts-node/register tests/**/*.test.ts"
+		"lint-build": "npm run lint && npm run build"
 	},
 	"peerDependencies": {
 		"lock": "^1.1.0",
