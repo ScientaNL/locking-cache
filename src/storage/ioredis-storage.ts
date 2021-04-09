@@ -1,4 +1,4 @@
-import * as IORedis from "ioredis";
+import type {Redis} from "ioredis";
 import {Storage} from "./storage.interface";
 
 interface RedisStorageOptions<T> {
@@ -15,7 +15,7 @@ export class IoRedisStorage<T> implements Storage<T> {
 		serializer: (data) => Promise.resolve(JSON.stringify(data))
 	};
 
-	constructor(private readonly ioRedis: IORedis.Redis, options: Partial<RedisStorageOptions<T>> = {}) {
+	constructor(private readonly ioRedis: Redis, options: Partial<RedisStorageOptions<T>> = {}) {
 		Object.assign(this.options, options);
 	}
 
