@@ -1,6 +1,6 @@
 {
 	"name": "@scienta/locking-cache",
-	"version": "1.1.5",
+	"version": "1.1.6",
 	"description": "Caching values with (distributed) locking. Easily extensible with your own storage and locking implementations",
 	"license": "MIT",
 	"repository": {
