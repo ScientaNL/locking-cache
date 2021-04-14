@@ -1,10 +1,11 @@
+import * as lt from "long-timeout";
 import {Storage} from "./storage.interface";
 
 export class SimpleStorage<T> implements Storage<T> {
 
 	constructor(
 		private readonly data = new Map<string,T>(),
-		private readonly ttlTimeouts = new Map<string,NodeJS.Timeout>()
+		private readonly ttlTimeouts = new Map<string,lt.Timeout>()
 	) {}
 
 	public get(key: string | number) {
@@ -27,10 +28,10 @@ export class SimpleStorage<T> implements Storage<T> {
 
 	private setTTL(key: string, ttlSec?: number) {
 		if (this.ttlTimeouts.has(key)) {
-			clearTimeout(this.ttlTimeouts.get(key) as NodeJS.Timeout);
+			lt.clearTimeout(this.ttlTimeouts.get(key) as lt.Timeout);
 		}
 		if (ttlSec) {
-			this.ttlTimeouts.set(key, setTimeout(() => this.data.delete(key), ttlSec * 1000));
+			this.ttlTimeouts.set(key, lt.setTimeout(() => this.data.delete(key), ttlSec * 1000));
 		}
 	}
 }

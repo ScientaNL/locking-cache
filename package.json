@@ -23,8 +23,10 @@
 	},
 	"dependencies": {
 		"lock": "^1.1.0",
-		"@types/redlock": "~4.0.1",
-		"@types/ioredis": "~4.22.0"
+		"long-timeout": "^0.1.1",
+		"@types/ioredis": "~4.22.0",
+		"@types/long-timeout": "^0.1.0",
+		"@types/redlock": "~4.0.1"
 	},
 	"peerDependencies": {
 		"redlock": "^4.1.0",
